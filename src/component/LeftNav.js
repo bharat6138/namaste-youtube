@@ -7,7 +7,8 @@ const LeftNav = () => {
 	const IsMenuOpen = useSelector((store) => store.app.isMenuOpen);
 	return (
 		<div
-			className={`overflow-y-auto h-full py-4 bg-black absolute md:relative z-10  md:translate-x-0 transition-all ${
+			id="sidebar"
+			className={`overflow-y-auto h-full py-4 bg-[#0f0f0f] absolute md:relative z-10  md:translate-x-0 transition-all ${
 				!IsMenuOpen
 					? "md:block w-[70px] hidden"
 					: "md:block w-[240px] translate-x-[0px]"
@@ -26,7 +27,7 @@ const LeftNav = () => {
 					);
 				})}
 				<hr className="my-5 border-white/[0.2]" />
-				<div className="text-white/[0.5] text-[12px]">Clone by: JS Dev Hindi</div>
+				<div className="text-white/[0.5] text-[12px]">Clone by: Namaste React</div>
 			</div>
 		</div>
 	);

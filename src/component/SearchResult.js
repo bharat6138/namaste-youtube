@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import { fetchDataFromApi } from "../utils/api";
-import LeftNav from "./LeftNav";
 import SearchResultVideoCard from "./SearchResultVideoCard";
 
 const SearchResult = () => {
@@ -14,22 +13,19 @@ const SearchResult = () => {
 	}, [searchQuery]);
 
 	const fetchSearchResults = () => {
-		fetchDataFromApi(`search/?q=${searchQuery}`).then((res) => {
-			console.log(res);
+		fetchDataFromApi(
+			`videos?part=snippet%2CcontentDetails%2Cstatistics%2CtopicDetails&maxResults=25&chart=mostPopular&regionCode=IN&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`,
+		).then((res) => {
+			// console.log(res);
 			setResult(res?.items);
 		});
 	};
 
 	return (
-		<div className="flex flex-row h-[calc(100%-56px)]">
-			<LeftNav />
-			<div className="grow w-[calc(100%-240px)] h-full overflow-y-auto bg-black">
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-5">
-					{result?.map((item, index) => {
-						return <SearchResultVideoCard key={index} video={item} />;
-					})}
-				</div>
-			</div>
+		<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-5">
+			{result?.map((item, index) => {
+				return <SearchResultVideoCard key={index} video={item} />;
+			})}
 		</div>
 	);
 };
