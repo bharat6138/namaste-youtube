@@ -30,7 +30,7 @@ const VideoDetails = () => {
 		fetchDataFromApi(
 			`videos?part=snippet%2CcontentDetails%2Cstatistics%2CtopicDetails&id=${searchParams.get(
 				"v",
-			)}&maxResults=50&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`,
+			)}&maxResults=50&key=AIzaSyBuXWOdtoRJd9LsgPzMWw_IxPky8jp1uiM`,
 		).then((res) => {
 			console.log(res.items[0]);
 			setVideo(res.items[0]);
@@ -41,7 +41,7 @@ const VideoDetails = () => {
 		fetchDataFromApi(
 			`search?part=snippet&relatedToVideoId=${searchParams.get(
 				"v",
-			)}&maxResults=25&type=video&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`,
+			)}&maxResults=25&type=video&key=AIzaSyBuXWOdtoRJd9LsgPzMWw_IxPky8jp1uiM`,
 		).then((res) => {
 			setRelatedVideos(res);
 		});

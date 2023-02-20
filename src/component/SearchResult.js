@@ -14,7 +14,7 @@ const SearchResult = () => {
 
 	const fetchSearchResults = () => {
 		fetchDataFromApi(
-			`videos?part=snippet%2CcontentDetails%2Cstatistics%2CtopicDetails&maxResults=25&chart=mostPopular&regionCode=IN&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`,
+			`videos?part=snippet%2CcontentDetails%2Cstatistics%2CtopicDetails&maxResults=25&chart=mostPopular&regionCode=IN&key=AIzaSyBuXWOdtoRJd9LsgPzMWw_IxPky8jp1uiM`,
 		).then((res) => {
 			// console.log(res);
 			setResult(res?.items);
