@@ -23,11 +23,16 @@ code {
 	margin-left: 5px;
 	margin-right: 5px;
 }
-
+.slick-active a,
+.slick-active a:hover {
+	background-color: black;
+	color: white;
+}
 .slick-list {
-	margin-left: 0px;
-	margin-right: 0px;
-	pointer-events: none;
+	padding: 0px 70px;
+}
+.slick-disabled {
+	display: none;
 }
 .load-bar {
 	position: fixed;

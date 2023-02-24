@@ -31,5 +31,18 @@ export const categories = [
 	{ name: "Report History", icon: <AiOutlineFlag />, type: "menu" },
 	{ name: "Help", icon: <FiHelpCircle />, type: "menu" },
 	{ name: "Send feedback", icon: <RiFeedbackLine />, type: "menu" },
-	{ name: "Left Arrow", icon: <SlArrowLeft />, type: "control" },
+];
+
+export const popular = [
+	{ name: "New", url: "latest" },
+	{ name: "Music", url: "music" },
+	{ name: "Satsang", url: "satsang" },
+	{ name: "Mixes", url: "latestMixes" },
+	{ name: "Kapil Sharma", url: "kapilsharma2023" },
+	{ name: "Live", url: "live" },
+	{ name: "Comedy Clubs", url: "comedyclubs" },
+	{ name: "Akshay Saini", url: "akshaysaini" },
+	{ name: "React", url: "reactjs" },
+	{ name: "Namaste Javascript", url: "namastejs" },
+	{ name: "Bollywood Music", url: "latestBollywoodmusic" },
 ];

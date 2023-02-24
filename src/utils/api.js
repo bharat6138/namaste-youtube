@@ -1,27 +1,17 @@
 import axios from "axios";
 
-// const BASE_URL =
-// 	"https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics%2CtopicDetails&maxResults=25&chart=mostPopular&regionCode=IN&key=AIzaSyDxS9jzeqlWWn4bC-0E8LZabrD55S8LHUY";
+const BASE_URL = "https://youtube138.p.rapidapi.com";
 
-// const BASE_URL = "https://youtube138.p.rapidapi.com";
-const BASE_URL = "https://youtube.googleapis.com/youtube/v3";
-
-// "https://youtube.googleapis.com/youtube/v3/browse?key=AIzaSyDxS9jzeqlWWn4bC-0E8LZabrD55S8LHUY";
 const options = {
-	//params: { hl: "en", gl: "US" },
+	params: { hl: "en", gl: "IN" },
 	headers: {
-		"X-RapidAPI-Key": "AIzaSyBuXWOdtoRJd9LsgPzMWw_IxPky8jp1uiM",
-		"X-RapidAPI-Host": "localhost:3000",
-		"Access-Control-Allow-Origin": "*",
-		"Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
-		"Access-Control-Allow-Headers":
-			"Origin, Content-Type, X-Auth-Token, Authorization, Accept,charset,boundary,Content-Length",
+		"X-RapidAPI-Key": "4596dbf03emsh3aeb8527c864ba3p1334bbjsn91fa17943875",
+		// "X-RapidAPI-Key": "4902351b37msh1f3b2f72569b3a9p1fe51cjsnbbde08e1d334",
+		"X-RapidAPI-Host": "youtube138.p.rapidapi.com",
 	},
 };
 
 export const fetchDataFromApi = async (url) => {
-	const { data } = await axios.get(`${BASE_URL}/${url}`);
+	const { data } = await axios.get(`${BASE_URL}/${url}`, options);
 	return data;
 };
-
-// https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=5rOiW_xY-kc&type=video&key={YOUR_API_KEY}
