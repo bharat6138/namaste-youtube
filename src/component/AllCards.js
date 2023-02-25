@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-
 import { fetchDataFromApi } from "../utils/api";
 import VideoCard from "./VideoCard";
 
 const AllCards = ({ onLoaderFinished, category }) => {
 	const loading = useSelector((store) => store.app.loading);
-	// const keyword = useSelector((store) => store.app.category);
+	const keyword = useSelector((store) => store.app.category);
 	const [result, setResult] = useState([]);
 	// const { searchQuery } = useParams();
 	useEffect(() => {
 		document.getElementById("root").classList.remove("custom-h");
-		fetchSelectedCategoryData();
+		fetchSelectedCategoryData(category);
 	}, [category]);
 
 	const fetchSelectedCategoryData = (query) => {
 		onLoaderFinished(30);
-		fetchDataFromApi(`search/?q=${category}`).then(({ contents }) => {
+		fetchDataFromApi(`search/?q=${query}`).then(({ contents }) => {
 			console.log(contents);
 			onLoaderFinished(60);
 			setResult(contents);

@@ -12,7 +12,7 @@ import { toggleMenu } from "../redux/apiSlice";
 import { fetchDataFromApi } from "../utils/api";
 import AutoComplete from "./Autocomplete";
 import { useSelector } from "react-redux";
-const Header = () => {
+const Header = ({ onLoaderFinished }) => {
 	const [searchQuery, setSearchQuery] = useState("");
 	const dispatch = useDispatch();
 	const toggleMenuHandler = () => {
@@ -38,21 +38,15 @@ const Header = () => {
 	return (
 		<div className="sticky top-0 z-10 flex flex-row items-center justify-between h-14 px-4 md:px-5 bg-white dark:bg-white">
 			<div className="flex h-5 items-center">
-				<div className="flex  md:mr-6 cursor-pointer items-center justify-center h-10 w-10 rounded-full hover:bg-[#303030]/[0.6]">
-					<SlMenu
-						className="text-black text-xl"
-						onClick={() => toggleMenuHandler()}
-					/>
-				</div>
-				{pageName !== "video" && (
+				{pageName !== "" && (
 					<div
-						className="flex md:hidden md:mr-6 cursor-pointer items-center justify-center h-10 w-10 rounded-full hover:bg-[#303030]/[0.6]"
+						className="flex md:mr-6 cursor-pointer items-center justify-center h-10 w-10 rounded-full hover:bg-[#303030]/[0.6]"
 						onClick={() => toggleMenuHandler()}
 					>
-						{IsMenuOpen ? (
-							<CgClose className="text-white text-xl" />
+						{!IsMenuOpen ? (
+							<CgClose className="text-black text-xl" />
 						) : (
-							<SlMenu className="text-white text-xl" />
+							<SlMenu className="text-black text-xl" />
 						)}
 					</div>
 				)}
@@ -63,7 +57,12 @@ const Header = () => {
 				</a>
 			</div>
 			<div className="group flex items-center relative">
-				<AutoComplete data={result} query={searchQuery} setquery={setSearchQuery} />
+				<AutoComplete
+					data={result}
+					query={searchQuery}
+					setquery={setSearchQuery}
+					onLoaderFinished={onLoaderFinished}
+				/>
 			</div>
 			<div className="flex items-center">
 				<div className="hidden md:flex">

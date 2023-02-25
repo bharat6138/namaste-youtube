@@ -1,21 +1,31 @@
 import { useState } from "react";
 import { IoIosSearch } from "react-icons/io";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-const AutoComplete = ({ data, query, setquery }) => {
+const AutoComplete = ({ data, query, setquery, onLoaderFinished }) => {
 	const [suggestions, setSuggestions] = useState([]);
 	const [suggestionIndex, setSuggestionIndex] = useState(0);
 	const [suggestionsActive, setSuggestionsActive] = useState(false);
+	const loading = useSelector((store) => store.app.loading);
 	const navigate = useNavigate();
 
 	const handleChange = (e) => {
 		const query = e.target.value.toLowerCase();
 		setquery(query);
+		onLoaderFinished(10);
+
 		if (query.length > 1) {
 			const filterSuggestions = data.filter(
-				(suggestion) => suggestion.toLowerCase().indexOf(query) > -1,
+				(suggestion) => suggestion.toLowerCase().indexOf(query) <= -1,
 			);
+
 			setSuggestions(filterSuggestions);
+			onLoaderFinished(40);
+
 			setSuggestionsActive(true);
+			loading(true);
+			loading(false);
+			onLoaderFinished(100);
 		} else {
 			setSuggestionsActive(false);
 		}
@@ -26,7 +36,7 @@ const AutoComplete = ({ data, query, setquery }) => {
 		setquery(e.target.innerText);
 		setSuggestionsActive(false);
 	};
-	// 9818848905
+
 	const handleKeyDown = (e) => {
 		// UP ARROW
 		if (e.keyCode === 38) {
@@ -47,33 +57,47 @@ const AutoComplete = ({ data, query, setquery }) => {
 			setquery(suggestions[suggestionIndex]);
 			setSuggestionIndex(0);
 			setSuggestionsActive(false);
+			onLoaderFinished(40);
 			navigate(`/searchResult/${suggestions[suggestionIndex]}`);
+			onLoaderFinished(100);
 		}
 	};
 
 	const Suggestions = () => {
-		return (
-			<ul className="bg-white border py-3 rounded-3xl border-[#cccccc] absolute top-[40px] z-999 lg:w-[540px] sm:w-[100%]">
-				{suggestions.map((suggestion, index) => {
-					return (
-						<li
-							className={
-								index === suggestionIndex
-									? "bg-[#eeeeee] items-center justify-start flex px-3 py-2 font-bold"
-									: "items-center justify-start flex px-3 py-2 font-bold"
-							}
-							key={index}
-							onClick={handleClick}
-						>
-							<div className="w-10 ">
-								<IoIosSearch className="text-black text-xl" />
-							</div>{" "}
-							{suggestion}
-						</li>
-					);
-				})}
-			</ul>
-		);
+		if (suggestions.length) {
+			return (
+				<ul className="bg-white border py-3 rounded-3xl border-[#cccccc] absolute top-[40px] z-999 lg:w-[540px] sm:w-[100%]">
+					{suggestions.map((suggestion, index) => {
+						return !suggestion ? (
+							<li>Loading</li>
+						) : (
+							<li
+								className={
+									index === suggestionIndex
+										? "bg-[#eeeeee] items-center justify-start flex px-3 py-2 font-bold"
+										: "items-center justify-start flex px-3 py-2 font-bold"
+								}
+								key={index}
+								onClick={handleClick}
+							>
+								<div className="w-10 ">
+									<IoIosSearch className="text-black text-xl" />
+								</div>{" "}
+								{suggestion}
+							</li>
+						);
+					})}
+				</ul>
+			);
+		} else {
+			return (
+				<ul className="bg-white border py-3 rounded-3xl border-[#cccccc] absolute top-[40px] z-999 lg:w-[540px] sm:w-[100%]">
+					<li className="items-center justify-center flex px-3 py-2 text-xs text-center">
+						<em>No suggestions available.</em>
+					</li>
+				</ul>
+			);
+		}
 	};
 
 	return (

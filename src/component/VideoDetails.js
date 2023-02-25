@@ -25,7 +25,11 @@ const VideoDetails = () => {
 		console.log(video?.author?.avatar[0]?.url);
 	}, [id]);
 	useLayoutEffect(() => {
-		checkSidebar();
+		return IsMenuOpen
+			? null
+			: () => {
+					document.getElementById("sidebar").style.display = "block";
+			  };
 	}, []);
 	const fetchVideoDetails = () => {
 		!loading &&
@@ -42,10 +46,7 @@ const VideoDetails = () => {
 				setRelatedVideos(res);
 			});
 	};
-	const checkSidebar = () => {
-		if (IsMenuOpen === true)
-			return (document.getElementById("sidebar").style.position = "absolute");
-	};
+
 	return (
 		<div className="flex justify-center flex-row h-[calc(100%-56px)] bg-white">
 			<div className="w-full max-w-[1280px] flex flex-col lg:flex-row">

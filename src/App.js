@@ -12,16 +12,20 @@ import LeftNav from "./component/LeftNav";
 
 const App = () => {
 	const [progress, setProgress] = useState(0);
-	const [selectedCategory, setSelectedCategory] = useState("Latest");
+	const [selectedCategory, setSelectedCategory] = useState("New");
 	return (
 		<Provider store={store}>
 			<LoadingBar color="#f11946" progress={progress} />
 
 			<BrowserRouter>
 				<div className="flex flex-col h-full">
-					<Header />
+					<Header onLoaderFinished={setProgress} />
 					<div className="flex flex-row h-[calc(100%-56px)]">
-						<LeftNav category={selectedCategory} setcategory={setSelectedCategory} />
+						<LeftNav
+							category={selectedCategory}
+							setcategory={setSelectedCategory}
+							onLoaderFinished={setProgress}
+						/>
 						<div className="grow w-[calc(100%-240px)] h-full overflow-y-auto bg-white">
 							<BtnSlider />
 							<Routes>

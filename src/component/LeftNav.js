@@ -4,7 +4,7 @@ import { categories } from "../utils/constants";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const LeftNav = ({ category, setcategory }) => {
+const LeftNav = ({ category, setcategory, onLoaderFinished }) => {
 	const IsMenuOpen = useSelector((store) => store.app.isMenuOpen);
 	const navigate = useNavigate();
 
@@ -23,13 +23,21 @@ const LeftNav = ({ category, setcategory }) => {
 	return (
 		<div
 			id="sidebar"
-			className={`overflow-y-auto h-full py-4 bg-white absolute md:relative z-10  md:translate-x-0 transition-all ${
-				!IsMenuOpen
-					? "md:block w-[70px] hidden"
+			className={`overflow-y-auto h-full py-4 bg-white absolute md:relative z-10  md:block w-[240px] overflow-y-auto h-full py-4 bg-white absolute md:relative z-10 translate-x-[-240px] md:translate-x-0  transition-all ${
+				IsMenuOpen
+					? "md:block w-[70px] hidden translate-x-[0px]"
 					: "md:block w-[240px] translate-x-[0px]"
 			}`}
 		>
-			<div className="flex px-5 flex-col">
+			{/* <div
+			id="sidebar"
+			className={`md:block w-[240px] overflow-y-auto h-full py-4 bg-white absolute md:relative z-10 translate-x-[-240px] md:translate-x-0 transition-all ${
+				IsMenuOpen ? "translate-x-0" : ""
+			}`}
+		></div> */}
+			<div
+				className={`flex px-5 flex-col ${IsMenuOpen ? "px-2 items-center" : ""}`}
+			>
 				{categories.map((item) => {
 					return (
 						<React.Fragment key={item.name}>
@@ -38,8 +46,11 @@ const LeftNav = ({ category, setcategory }) => {
 								icon={item.icon}
 								action={() => {
 									clickHandler(item.name, item.type);
+									onLoaderFinished(30);
 									navigate("/");
+									onLoaderFinished(100);
 								}}
+								isMobile={IsMenuOpen}
 								className={`${category === item.name ? "bg-black/[0.15]" : ""}`}
 							/>
 							{item.divider && <hr className="my-5 border-black/[0.2]" />}

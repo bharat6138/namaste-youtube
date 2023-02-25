@@ -3,6 +3,8 @@ import Slider from "react-slick";
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
 import { Link } from "react-router-dom";
 import { popular } from "../utils/constants";
+import { useSelector } from "react-redux";
+
 function SampleNextArrow(props) {
 	const { onClick } = props;
 	return (
@@ -32,6 +34,7 @@ function SamplePrevArrow(props) {
 }
 
 const BtnSlider = () => {
+	const IsMenuOpen = useSelector((store) => store.app.isMenuOpen);
 	const settings = {
 		dots: false,
 		infinite: false,
@@ -45,6 +48,7 @@ const BtnSlider = () => {
 		nextArrow: <SampleNextArrow />,
 		prevArrow: <SamplePrevArrow />,
 	};
+
 	return (
 		<Slider
 			{...settings}

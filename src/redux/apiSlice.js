@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const appSlice = createSlice({
 	name: "app",
 	initialState: {
-		isMenuOpen: true,
+		isMenuOpen: false,
 		isLoading: false,
 		category: "Latest",
 	},
